@@ -165,7 +165,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
     return new Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
-        title: const Text('Konctd'),
+        title: const Text('Knctd'),
       ),
       body: new SafeArea(
         top: false,
@@ -278,7 +278,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
                 ButtonTheme(
                   minWidth: double.infinity,
                   child: new RaisedButton(
-                    child:const Text('SIGN UP'),
+                    child:const Text('REGISTER'),
                     padding: const EdgeInsets.all(16.0),
                     textColor: Colors.white,
                     color: Theme.of(context).primaryColor,

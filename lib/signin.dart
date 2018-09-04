@@ -165,7 +165,7 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
     return new Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
-        title: const Text('Konctd'),
+        title: const Text('Knctd'),
       ),
       body: new SafeArea(
         top: false,
@@ -236,14 +236,14 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
                 const SizedBox(height: 48.0),
 
                 new Center(child:new Text(
-                    'Do not have an account yet?',
+                    'New to Knctd?',
                     style: Theme.of(context).textTheme.title
                 )),
                 const SizedBox(height: 12.0),
 
                 new Center(
                   child: new FlatButton(
-                    child: const Text('SIGN UP'),
+                    child: const Text('REGISTER'),
                     textColor: Colors.white,
                     color: Colors.green,
                     splashColor: Colors.redAccent,
