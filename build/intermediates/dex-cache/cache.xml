@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        is-multidex="false"
+        jar="D:\flutter\examples\flutter_gallery\build\connectivity\intermediates\intermediate-jars\release\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="191ec7b936be86794cfb372819cef90365e60a2e">
+        <dex dex="D:\flutter\examples\flutter_gallery\build\app\intermediates\transforms\preDex\release\4.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\flutter\examples\flutter_gallery\build\url_launcher\intermediates\intermediate-jars\release\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="0aaa700a3948efb74ebfad63e5f2190e74aeb780">
+        <dex dex="D:\flutter\examples\flutter_gallery\build\app\intermediates\transforms\preDex\release\3.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\flutter\examples\flutter_gallery\build\video_player\intermediates\intermediate-jars\release\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="dfd3ffb721379a10b48e51ae355f6425f81cdf7d">
+        <dex dex="D:\flutter\examples\flutter_gallery\build\app\intermediates\transforms\preDex\release\2.jar" />
+    </item>
+    <item
+        is-multidex="false"
+        jar="D:\flutter\examples\flutter_gallery\build\device_info\intermediates\intermediate-jars\release\classes.jar"
+        jumboMode="false"
+        min-sdk-version="16"
+        optimize="true"
+        revision="26.0.2"
+        sha1="f804dcde18eaf0d6df5054114e717ca0f4afdadc">
+        <dex dex="D:\flutter\examples\flutter_gallery\build\app\intermediates\transforms\preDex\release\5.jar" />
+    </item>
+
+</items>

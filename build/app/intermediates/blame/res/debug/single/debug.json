@@ -1,0 +1,74 @@
+[
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_background.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_background.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_foreground.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_foreground.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_foreground.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_foreground.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_ic_background.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_background.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xhdpi_people_connected.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xhdpi\\people_connected.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_people_connected.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\people_connected.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_background.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_background.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_people_connected.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-hdpi\\people_connected.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-hdpi_ic_foreground.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_foreground.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_foreground.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_foreground.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-mdpi_people_connected.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-mdpi\\people_connected.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_ic_background.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_background.png"
+    },
+    {
+        "merged": "D:\\FlutterProjs\\XProj\\build\\app\\intermediates\\res\\merged\\debug\\mipmap-xxhdpi_people_connected.png.flat",
+        "source": "D:\\FlutterProjs\\XProj\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\people_connected.png"
+    }
+]
