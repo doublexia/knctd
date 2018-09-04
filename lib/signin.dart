@@ -7,13 +7,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class SignupFormFieldDemo extends StatefulWidget {
-  const SignupFormFieldDemo({ Key key }) : super(key: key);
+class SigninFormFieldDemo extends StatefulWidget {
+  const SigninFormFieldDemo({ Key key }) : super(key: key);
 
   static const String routeName = '/material/text-form-field';
 
   @override
-  SignupFormFieldDemoState createState() => new SignupFormFieldDemoState();
+  SigninFormFieldDemoState createState() => new SigninFormFieldDemoState();
 }
 
 class PersonData {
@@ -78,7 +78,7 @@ class _PasswordFieldState extends State<PasswordField> {
   }
 }
 
-class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
+class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   PersonData person = new PersonData();
@@ -181,19 +181,6 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
               children: <Widget>[
                 const SizedBox(height: 12.0),
                 new TextFormField(
-                  textCapitalization: TextCapitalization.words,
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    filled: true,
-                    icon: Icon(Icons.person),
-                    hintText: 'Your Name',
-                    labelText: 'Name *',
-                  ),
-                  onSaved: (String value) { person.name = value; },
-                  validator: _validateName,
-                ),
-                const SizedBox(height: 12.0),
-                new TextFormField(
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     filled: true,
@@ -205,51 +192,6 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
                   onSaved: (String value) { person.email = value; },
                 ),
                 const SizedBox(height: 12.0),
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    border: UnderlineInputBorder(),
-                    filled: true,
-                    icon: Icon(Icons.phone),
-                    hintText: 'Your phone number',
-                    labelText: 'Phone Number',
-                    prefixText: '+1',
-                  ),
-                  keyboardType: TextInputType.phone,
-                  onSaved: (String value) { person.phoneNumber = value; },
-                  validator: _validatePhoneNumber,
-                  // TextInputFormatters are applied in sequence.
-                  inputFormatters: <TextInputFormatter> [
-                    WhitelistingTextInputFormatter.digitsOnly,
-                    // Fit the validating format.
-                    _phoneNumberFormatter,
-                  ],
-                ),
-
-                const SizedBox(height: 12.0),
-                /*
-                new TextFormField(
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    hintText: 'Tell us about yourself',
-                    helperText: 'Keep it short, this is just a demo.',
-                    labelText: 'Life story',
-                  ),
-                  maxLines: 3,
-                ),
-                const SizedBox(height: 12.0),
-                new TextFormField(
-                  keyboardType: TextInputType.number,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
-                    labelText: 'Salary',
-                    prefixText: '\$',
-                    suffixText: 'USD',
-                    suffixStyle: TextStyle(color: Colors.green)
-                  ),
-                  maxLines: 1,
-                ),
-                const SizedBox(height: 12.0),
-                */
                 new PasswordField(
                   fieldKey: _passwordFieldKey,
                   helperText: 'No more than 8 characters.',
@@ -278,7 +220,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
                 ButtonTheme(
                   minWidth: double.infinity,
                   child: new RaisedButton(
-                    child:const Text('SIGN UP'),
+                    child: const Text('SIGN IN'),
                     padding: const EdgeInsets.all(16.0),
                     textColor: Colors.white,
                     color: Theme.of(context).primaryColor,
@@ -294,18 +236,18 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
                 const SizedBox(height: 48.0),
 
                 new Center(child:new Text(
-                    'Already have an account?',
+                    'Do not have an account yet?',
                     style: Theme.of(context).textTheme.title
                 )),
                 const SizedBox(height: 12.0),
 
                 new Center(
                   child: new FlatButton(
-                    child: const Text('SIGN IN'),
-                      textColor: Colors.white,
-                      color: Colors.green,
-                      splashColor: Colors.redAccent,
-                    onPressed: () {Navigator.of(context).pushReplacementNamed('/signin');}
+                    child: const Text('SIGN UP'),
+                    textColor: Colors.white,
+                    color: Colors.green,
+                    splashColor: Colors.redAccent,
+                    onPressed: () {Navigator.of(context).pushReplacementNamed('/signup');},
                   ),
                 ),
                 const SizedBox(height: 12.0),

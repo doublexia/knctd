@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 
 import 'gallery/app.dart';
 import 'signup.dart';
+import 'signin.dart';
 
 void main() async {
   // Temporary debugging hook for https://github.com/flutter/flutter/issues/17888
@@ -20,16 +21,16 @@ void main() async {
   MaterialPageRoute.debugEnableFadingRoutes = true; // ignore: deprecated_member_use
   //runApp(const GalleryApp());
 
-  Widget _defaultHome = new TextFormFieldDemo();
+  Widget _defaultHome = new SignupFormFieldDemo();
   runApp(new MaterialApp(
     title: 'Connected',
     home: _defaultHome,
-    /*
+
     routes: <String, WidgetBuilder>{
       // Set routes for using the Navigator.
-      '/home': (BuildContext context) => new HomePage(),
-      '/login': (BuildContext context) => new LoginPage()
+      '/signup': (BuildContext context) => new SignupFormFieldDemo(),
+      '/signin': (BuildContext context) => new SigninFormFieldDemo()
     },
-    */
+
   ));
 }
