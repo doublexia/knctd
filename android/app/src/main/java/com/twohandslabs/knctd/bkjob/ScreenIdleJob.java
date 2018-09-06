@@ -27,8 +27,9 @@ public class ScreenIdleJob extends Job {
         if (!jobRequests.isEmpty()) {
             return;
         }
+        Log.e(TAG, "job scheduled");
         new JobRequest.Builder(ScreenIdleJob.TAG)
-                .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(7))
+                //.setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(7))
                 .setUpdateCurrent(true) // calls cancelAllForTag(NoteSyncJob.TAG) for you
                 .setRequiredNetworkType(JobRequest.NetworkType.ANY)
                 .setRequiresDeviceIdle(true)
@@ -36,6 +37,5 @@ public class ScreenIdleJob extends Job {
                 .build()
                 .schedule();
 
-        Log.e(TAG, "job scheduled");
     }
 }
