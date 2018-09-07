@@ -6,6 +6,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupFormFieldDemo extends StatefulWidget {
   const SignupFormFieldDemo({ Key key }) : super(key: key);
@@ -79,10 +80,27 @@ class _PasswordFieldState extends State<PasswordField> {
 }
 
 class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
+  static const LoadTimestampChannel = const MethodChannel('knctd.twohandslabs.com/timestamp');
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   PersonData person = new PersonData();
 
+  int _last_ts = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    //_loadLastTimestamp();
+  }
+
+  /*
+  _loadLastTimestamp() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _last_ts = (prefs.getInt('screen_idle_tag') ?? 0);
+    });
+  }
+*/
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
       content: new Text(value)
@@ -104,6 +122,24 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
       form.save();
       showInSnackBar('${person.name}\'s phone number is ${person.phoneNumber}');
     }
+  }
+
+  void _show_last_timestamp() {
+    showInSnackBar(_last_ts.toString());
+  }
+
+  Future<Null> _load_last_timestamp() async {
+    int tstamp;
+    try {
+      final int result = await LoadTimestampChannel.invokeMethod('loadTimestamp');
+      tstamp = result;
+    } on PlatformException catch (e) {
+      tstamp = 0;
+    }
+
+    setState(() {
+      _last_ts = tstamp;
+    });
   }
 
   String _validateName(String value) {
@@ -308,6 +344,16 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
                     onPressed: () {Navigator.of(context).pushReplacementNamed('/signin');}
                   ),
                 ),
+                const SizedBox(height: 12.0),
+                new Center(
+                  child:new FlatButton(
+                    child: const Text('Load TS'),
+                    textColor: Colors.white,
+                    color: Colors.green,
+                    onPressed: _load_last_timestamp,
+                  ),
+                ),
+                Text(_last_ts.toString()),
                 const SizedBox(height: 12.0),
               ],
             ),
