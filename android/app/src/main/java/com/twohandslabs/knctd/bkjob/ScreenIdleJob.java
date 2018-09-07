@@ -28,7 +28,7 @@ public class ScreenIdleJob extends Job {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         Log.e(TAG, "idled at "+System.currentTimeMillis()+ " "+formatter.format(date));
-        Utils.saveLastTimestamp(getContext(), System.currentTimeMillis());
+        Utils.saveLastTimestamp(getContext(), date.getTime() /*System.currentTimeMillis()*/);
         return Result.RESCHEDULE;
     }
 
@@ -43,9 +43,9 @@ public class ScreenIdleJob extends Job {
                 .setPeriodic(TimeUnit.MINUTES.toMillis(15), TimeUnit.MINUTES.toMillis(7))
                 .setUpdateCurrent(true) // calls cancelAllForTag(NoteSyncJob.TAG) for you
                 .setRequiredNetworkType(JobRequest.NetworkType.ANY)
-                .setRequiresDeviceIdle(true)
+                //.setRequiresDeviceIdle(true)
                 //.setOverrideDeadline(0)
-                .setRequirementsEnforced(true)
+                //.setRequirementsEnforced(true)
                 .build()
                 .schedule();
 
