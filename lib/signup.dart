@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -113,6 +114,49 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final GlobalKey<FormFieldState<String>> _passwordFieldKey = new GlobalKey<FormFieldState<String>>();
   final _UsNumberTextInputFormatter _phoneNumberFormatter = new _UsNumberTextInputFormatter();
+
+  Future<Null> _askToWait() async {
+    switch (await showDialog<Null>(
+        context: context,
+        builder: (BuildContext context) {
+          return new SimpleDialog(
+            title: const Text('Sign Up ...'),
+            children: <Widget>[
+              new CircularProgressIndicator(),
+            ],
+          );
+        }
+    )) {
+    }
+  }
+
+  Future<Null> _doSignup() async {
+    new Future.delayed(new Duration(seconds: 3), (){
+      Navigator.pop(context);
+    });
+  }
+
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      child: new Dialog(
+        child: new Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            new CircularProgressIndicator(),
+            new Text("Sign Up..."),
+          ],
+        ),
+      ),
+    );
+    _doSignup();
+//    new Future.delayed(new Duration(seconds: 3), () {
+//      Navigator.pop(context); //pop dialog
+//      _doSignup();
+//    });
+  }
+
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
     if (!form.validate()) {
@@ -121,6 +165,8 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
     } else {
       form.save();
       showInSnackBar('${person.name}\'s phone number is ${person.phoneNumber}');
+
+      _onLoading();
     }
   }
 
