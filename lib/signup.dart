@@ -4,6 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -130,9 +131,33 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
     }
   }
 
-  Future<Null> _doSignup() async {
-    new Future.delayed(new Duration(seconds: 3), (){
-      Navigator.pop(context);
+  Future<dynamic> _doSignup() async {
+//    new Future.delayed(new Duration(seconds: 3), (){
+//      Navigator.pop(context);
+//    });
+
+    var url = "http://docunation.com:8880/knctd/acctregi.php";
+    var body = "{'nm':'${person.name}'}";
+//    return await http
+//        .post(Uri.encodeFull(url), body: body, headers: {"Accept":"application/json", "Content-Type": "application/json"})
+//        .then((http.Response response) {
+//            //      print(response.body);
+//            final int statusCode = response.statusCode;
+//            if (statusCode < 200 || statusCode > 400 || json == null) {
+//              throw new Exception("Error while fetching data");
+//            }
+//            return _decoder.convert(response.body);
+//        });
+
+    http.post(url, body:body, headers: {"Accept":"application/json", "Content-Type": "application/json"})
+    .then((response) {
+      if (response.statusCode == 200) {
+        print("Response body: ${response.body}");
+        Navigator.pop(context);
+      } else {
+        // TODO
+        // popup error alert here
+      }
     });
   }
 
@@ -141,11 +166,20 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
       context: context,
       barrierDismissible: false,
       child: new Dialog(
-        child: new Row(
+        child: new Column(
           mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            new CircularProgressIndicator(),
-            new Text("Sign Up..."),
+            new Padding(
+              padding: new EdgeInsets.symmetric(vertical: 15.0),
+              child:  new CircularProgressIndicator(),
+            ),
+
+//            new Text("Sign Up..."),
+            new Padding(
+              padding: new EdgeInsets.symmetric(vertical: 15.0),
+              child: const Text('Sign Up...'),
+            )
           ],
         ),
       ),
