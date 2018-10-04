@@ -11,6 +11,8 @@ import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SignupFormFieldDemo extends StatefulWidget {
+  static String tag = '/signup';
+
   const SignupFormFieldDemo({ Key key }) : super(key: key);
 
   static const String routeName = '/material/text-form-field';

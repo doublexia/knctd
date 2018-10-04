@@ -8,6 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 class SigninFormFieldDemo extends StatefulWidget {
+  static String tag = '/signin';
+
   const SigninFormFieldDemo({ Key key }) : super(key: key);
 
   static const String routeName = '/material/text-form-field';
