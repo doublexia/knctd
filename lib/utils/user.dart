@@ -31,4 +31,8 @@ class User {
   User.fromJson(Map<String, dynamic> json)
       : _username = json['username'],
        _password = json['password'];
+
+  String toString() {
+    return _username;
+  }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter_gallery/data/db_helper.dart';
+import 'package:knctd/data/db_helper.dart';
 
 enum AuthState { LOGGED_IN, LOGGED_OUT }
 

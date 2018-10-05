@@ -2,10 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
-import 'package:flutter_gallery/utils/RESTDatasource.dart';
-import 'package:flutter_gallery/utils/user.dart';
+import 'package:knctd/utils/RESTDatasource.dart';
+import 'package:knctd/utils/user.dart';
 
-import 'package:flutter_gallery/utils/network_util.dart';
+import 'package:knctd/utils/network_util.dart';
 
 abstract class LoginScreenContract {
   void onLoginSuccess(User user);

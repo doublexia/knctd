@@ -1,10 +1,10 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_gallery/utils/auth.dart';
-import 'package:flutter_gallery/data/db_helper.dart';
-import 'package:flutter_gallery/utils/user.dart';
-import 'package:flutter_gallery/screens/login_screen_presenter.dart';
+import 'package:knctd/utils/auth.dart';
+import 'package:knctd/data/db_helper.dart';
+import 'package:knctd/utils/user.dart';
+import 'package:knctd/screens/login_screen_presenter.dart';
 
 class LoginScreen extends StatefulWidget {
   @override

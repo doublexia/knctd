@@ -4,11 +4,18 @@
 
 import 'dart:async';
 import 'dart:convert';
+import 'package:knctd/utils/user.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+
+import 'package:knctd/screens/login_screen_presenter.dart';
+import 'package:knctd/utils/auth.dart';
+import 'package:knctd/data/db_helper.dart';
+import 'package:knctd/signin.dart';
+
 
 class SignupFormFieldDemo extends StatefulWidget {
   static String tag = '/signup';
@@ -83,18 +90,34 @@ class _PasswordFieldState extends State<PasswordField> {
   }
 }
 
-class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
+class SignupFormFieldDemoState extends State<SignupFormFieldDemo> implements LoginScreenContract, AuthStateListener {
   static const LoadTimestampChannel = const MethodChannel('knctd.twohandslabs.com/timestamp');
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  BuildContext _ctx;
 
   PersonData person = new PersonData();
 
+  LoginScreenPresenter _presenter;
+  bool _isLoading = false;
+
   int _last_ts = 0;
 
+  SignupFormFieldDemoState() {
+    _presenter = new LoginScreenPresenter(this);
+//    var authStateProvider = new AuthStateProvider();
+//    authStateProvider.subscribe(this);
+  }
   @override
   void initState() {
     super.initState();
     //_loadLastTimestamp();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+//    var authStateProvider = new AuthStateProvider();
+//    authStateProvider.dispose(this);
   }
 
   /*
@@ -186,7 +209,8 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
         ),
       ),
     );
-    _doSignup();
+//    _doSignup();
+    _presenter.doLogin(new User(person.name, person.password));
 //    new Future.delayed(new Duration(seconds: 3), () {
 //      Navigator.pop(context); //pop dialog
 //      _doSignup();
@@ -203,6 +227,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
       showInSnackBar('${person.name}\'s phone number is ${person.phoneNumber}');
 
       _onLoading();
+//      _presenter.doLogin(new User(person.name, person.password));
     }
   }
 
@@ -280,6 +305,19 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
 
   @override
   Widget build(BuildContext context) {
+    _ctx = context;
+    var registerBtn = ButtonTheme(
+      minWidth: double.infinity,
+      child: new RaisedButton(
+        child:const Text('REGISTER'),
+        padding: const EdgeInsets.all(16.0),
+        textColor: Colors.white,
+        color: Theme.of(context).primaryColor,
+        splashColor: Colors.redAccent,
+        onPressed: _handleSubmitted,
+      ),
+    );
+
     return new Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
@@ -393,17 +431,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
                 ),
                 const SizedBox(height: 12.0),
                 */
-                ButtonTheme(
-                  minWidth: double.infinity,
-                  child: new RaisedButton(
-                    child:const Text('REGISTER'),
-                    padding: const EdgeInsets.all(16.0),
-                    textColor: Colors.white,
-                    color: Theme.of(context).primaryColor,
-                    splashColor: Colors.redAccent,
-                    onPressed: _handleSubmitted,
-                  ),
-                ),
+                _isLoading?new CircularProgressIndicator() : registerBtn,
                 const SizedBox(height: 12.0),
                 new Text(
                   '* indicates required field',
@@ -443,6 +471,34 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> {
         ),
       ),
     );
+  }
+
+  @override
+  void onAuthStateChanged(AuthState state) {
+    if(state == AuthState.LOGGED_IN) {
+//      var authStateProvider = new AuthStateProvider();
+//      authStateProvider.dispose(this);
+      Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.tag);
+    }
+  }
+
+  @override
+  void onLoginError(String errorTxt) {
+    Navigator.of(context).pop();
+    showInSnackBar(errorTxt);
+    setState(() => _isLoading = false);
+  }
+
+  @override
+  void onLoginSuccess(User user) {
+    Navigator.of(context).pop();
+    showInSnackBar("Signed up "+user.toString());
+    setState(() => _isLoading = false);
+    var db = new DatabaseHelper();
+    //await db.saveUser(user);
+    var authStateProvider = new AuthStateProvider();
+    authStateProvider.notify(AuthState.LOGGED_IN);
+    Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.tag);
   }
 }
 

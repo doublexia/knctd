@@ -7,6 +7,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:knctd/signup.dart';
+
 class SigninFormFieldDemo extends StatefulWidget {
   static String tag = '/signin';
 
@@ -82,6 +84,7 @@ class _PasswordFieldState extends State<PasswordField> {
 
 class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+  BuildContext _ctx;
 
   PersonData person = new PersonData();
 
@@ -164,6 +167,7 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
 
   @override
   Widget build(BuildContext context) {
+    _ctx = context;
     return new Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
@@ -249,7 +253,7 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
                     textColor: Colors.white,
                     color: Colors.green,
                     splashColor: Colors.redAccent,
-                    onPressed: () {Navigator.of(context).pushReplacementNamed('/signup');},
+                    onPressed: () {Navigator.of(context).pushReplacementNamed(SignupFormFieldDemo.tag);},
                   ),
                 ),
                 const SizedBox(height: 12.0),
