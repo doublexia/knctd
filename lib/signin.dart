@@ -7,10 +7,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'package:knctd/screens/login_screen_presenter.dart';
+import 'package:knctd/data/db_helper.dart';
 import 'package:knctd/signup.dart';
+import 'package:knctd/data/user.dart';
+import 'package:knctd/screens/all_list.dart';
 
 class SigninFormFieldDemo extends StatefulWidget {
-  static String tag = '/signin';
+  static String route = '/signin';
 
   const SigninFormFieldDemo({ Key key }) : super(key: key);
 
@@ -21,8 +25,8 @@ class SigninFormFieldDemo extends StatefulWidget {
 }
 
 class PersonData {
-  String name = '';
-  String phoneNumber = '';
+//  String name = '';
+//  String phoneNumber = '';
   String email = '';
   String password = '';
 }
@@ -82,11 +86,18 @@ class _PasswordFieldState extends State<PasswordField> {
   }
 }
 
-class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
+class SigninFormFieldDemoState extends State<SigninFormFieldDemo> implements LoginScreenContract {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   BuildContext _ctx;
 
   PersonData person = new PersonData();
+
+  LoginScreenPresenter _presenter;
+  bool _isLoading = false;
+
+//  SigninFormFieldDemo() {
+//    _presenter = new LoginScreenPresenter(this);
+//  }
 
   void showInSnackBar(String value) {
     _scaffoldKey.currentState.showSnackBar(new SnackBar(
@@ -100,6 +111,40 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
   final GlobalKey<FormFieldState<String>> _passwordFieldKey = new GlobalKey<FormFieldState<String>>();
   final _UsNumberTextInputFormatter _phoneNumberFormatter = new _UsNumberTextInputFormatter();
+
+  void _onLoading() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      child: new Dialog(
+        child: new Column(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            new Padding(
+              padding: new EdgeInsets.symmetric(vertical: 15.0),
+              child:  new CircularProgressIndicator(),
+            ),
+
+//            new Text("Sign Up..."),
+            new Padding(
+              padding: new EdgeInsets.symmetric(vertical: 15.0),
+              child: const Text('Sign Up...'),
+            )
+          ],
+        ),
+      ),
+    );
+//    _doSignup();
+//    _presenter.doLogin(new User(person.email, person.password));
+    _presenter = new LoginScreenPresenter(this);
+    _presenter.doLogin(new User("name", "passwd"));
+//    new Future.delayed(new Duration(seconds: 3), () {
+//      Navigator.pop(context); //pop dialog
+//      _doSignup();
+//    });
+  }
+
   void _handleSubmitted() {
     final FormState form = _formKey.currentState;
     if (!form.validate()) {
@@ -107,7 +152,9 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
       showInSnackBar('Please fix the errors in red before submitting.');
     } else {
       form.save();
-      showInSnackBar('${person.name}\'s phone number is ${person.phoneNumber}');
+      showInSnackBar('${person.email}\'s passwd is ${person.password}');
+
+      _onLoading();
     }
   }
 
@@ -168,6 +215,18 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
   @override
   Widget build(BuildContext context) {
     _ctx = context;
+    var loginBtn = ButtonTheme(
+      minWidth: double.infinity,
+      child: new RaisedButton(
+        child: const Text('SIGN IN'),
+        padding: const EdgeInsets.all(16.0),
+        textColor: Colors.white,
+        color: Theme.of(context).primaryColor,
+        splashColor: Colors.redAccent,
+        onPressed: _handleSubmitted,
+      ),
+    );
+
     return new Scaffold(
       key: _scaffoldKey,
       appBar: new AppBar(
@@ -202,10 +261,11 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
                   fieldKey: _passwordFieldKey,
                   helperText: 'No more than 8 characters.',
                   labelText: 'Password *',
+                  onSaved: (String value) { person.password = value; },
                   onFieldSubmitted: (String value) {
-                    setState(() {
+//                    setState(() {
                       person.password = value;
-                    });
+//                    });
                   },
                 ),
                 const SizedBox(height: 12.0),
@@ -223,17 +283,8 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
                 ),
                 const SizedBox(height: 12.0),
                 */
-                ButtonTheme(
-                  minWidth: double.infinity,
-                  child: new RaisedButton(
-                    child: const Text('SIGN IN'),
-                    padding: const EdgeInsets.all(16.0),
-                    textColor: Colors.white,
-                    color: Theme.of(context).primaryColor,
-                    splashColor: Colors.redAccent,
-                    onPressed: _handleSubmitted,
-                  ),
-                ),
+                _isLoading?new CircularProgressIndicator(): loginBtn,
+
                 const SizedBox(height: 12.0),
                 new Text(
                   '* indicates required field',
@@ -253,7 +304,7 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
                     textColor: Colors.white,
                     color: Colors.green,
                     splashColor: Colors.redAccent,
-                    onPressed: () {Navigator.of(context).pushReplacementNamed(SignupFormFieldDemo.tag);},
+                    onPressed: () {Navigator.of(context).pushReplacementNamed(SignupFormFieldDemo.route);},
                   ),
                 ),
                 const SizedBox(height: 12.0),
@@ -263,6 +314,24 @@ class SigninFormFieldDemoState extends State<SigninFormFieldDemo> {
         ),
       ),
     );
+  }
+
+  @override
+  void onLoginError(String errorTxt) {
+    Navigator.of(context).pop();
+    showInSnackBar(errorTxt);
+    setState(() => _isLoading = false);
+  }
+
+  @override
+  void onLoginSuccess(User user) {
+    Navigator.of(context).pop();
+    showInSnackBar("Signed up "+user.toString());
+    setState(() => _isLoading = false);
+    var db = new DatabaseHelper();
+    //await db.saveUser(user);
+//    Navigator.of(context).pushReplacementNamed(BottomNavigationDemo.route);
+    Navigator.of(context).pushNamed(BottomNavigationDemo.route);
   }
 }
 

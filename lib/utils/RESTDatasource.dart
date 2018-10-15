@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'network_util.dart';
-import 'user.dart';
+import 'package:knctd/data/user.dart';
 
 //JSON response format if there’s an error:
 //

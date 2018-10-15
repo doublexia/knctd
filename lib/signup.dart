@@ -4,7 +4,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'package:knctd/utils/user.dart';
+import 'package:knctd/data/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,7 +18,7 @@ import 'package:knctd/signin.dart';
 
 
 class SignupFormFieldDemo extends StatefulWidget {
-  static String tag = '/signup';
+  static String route = '/signup';
 
   const SignupFormFieldDemo({ Key key }) : super(key: key);
 
@@ -156,35 +156,35 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> implements Log
     }
   }
 
-  Future<dynamic> _doSignup() async {
-//    new Future.delayed(new Duration(seconds: 3), (){
-//      Navigator.pop(context);
+//  Future<dynamic> _doSignup() async {
+////    new Future.delayed(new Duration(seconds: 3), (){
+////      Navigator.pop(context);
+////    });
+//
+//    var url = "http://docunation.com:8880/knctd/acctregi.php";
+//    var body = "{'nm':'${person.name}'}";
+////    return await http
+////        .post(Uri.encodeFull(url), body: body, headers: {"Accept":"application/json", "Content-Type": "application/json"})
+////        .then((http.Response response) {
+////            //      print(response.body);
+////            final int statusCode = response.statusCode;
+////            if (statusCode < 200 || statusCode > 400 || json == null) {
+////              throw new Exception("Error while fetching data");
+////            }
+////            return _decoder.convert(response.body);
+////        });
+//
+//    http.post(url, body:body, headers: {"Accept":"application/json", "Content-Type": "application/json"})
+//    .then((response) {
+//      if (response.statusCode == 200) {
+//        print("Response body: ${response.body}");
+//        Navigator.pop(context);
+//      } else {
+//        // TODO
+//        // popup error alert here
+//      }
 //    });
-
-    var url = "http://docunation.com:8880/knctd/acctregi.php";
-    var body = "{'nm':'${person.name}'}";
-//    return await http
-//        .post(Uri.encodeFull(url), body: body, headers: {"Accept":"application/json", "Content-Type": "application/json"})
-//        .then((http.Response response) {
-//            //      print(response.body);
-//            final int statusCode = response.statusCode;
-//            if (statusCode < 200 || statusCode > 400 || json == null) {
-//              throw new Exception("Error while fetching data");
-//            }
-//            return _decoder.convert(response.body);
-//        });
-
-    http.post(url, body:body, headers: {"Accept":"application/json", "Content-Type": "application/json"})
-    .then((response) {
-      if (response.statusCode == 200) {
-        print("Response body: ${response.body}");
-        Navigator.pop(context);
-      } else {
-        // TODO
-        // popup error alert here
-      }
-    });
-  }
+//  }
 
   void _onLoading() {
     showDialog(
@@ -210,7 +210,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> implements Log
       ),
     );
 //    _doSignup();
-    _presenter.doLogin(new User(person.name, person.password));
+    _presenter.doRegister(new User(person.name, person.password));
 //    new Future.delayed(new Duration(seconds: 3), () {
 //      Navigator.pop(context); //pop dialog
 //      _doSignup();
@@ -451,7 +451,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> implements Log
                       textColor: Colors.white,
                       color: Colors.green,
                       splashColor: Colors.redAccent,
-                    onPressed: () {Navigator.of(context).pushReplacementNamed('/signin');}
+                    onPressed: () {Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.route);}
                   ),
                 ),
                 const SizedBox(height: 12.0),
@@ -478,7 +478,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> implements Log
     if(state == AuthState.LOGGED_IN) {
 //      var authStateProvider = new AuthStateProvider();
 //      authStateProvider.dispose(this);
-      Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.tag);
+      Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.route);
     }
   }
 
@@ -498,7 +498,7 @@ class SignupFormFieldDemoState extends State<SignupFormFieldDemo> implements Log
     //await db.saveUser(user);
     var authStateProvider = new AuthStateProvider();
     authStateProvider.notify(AuthState.LOGGED_IN);
-    Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.tag);
+    Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.route);
   }
 }
 
