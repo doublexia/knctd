@@ -68,4 +68,12 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation 'com.evernote:android-job:1.2.6'
+
+    implementation 'com.google.firebase:firebase-auth:16.0.4'
+
+    // MultiDex for minSdkVersion < 20 since firebase needs this
+    implementation 'com.android.support:multidex:1.0.3'
+
 }
+
+apply plugin: 'com.google.gms.google-services'

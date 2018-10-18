@@ -1,0 +1,130 @@
+{
+  "project_info": {
+    "project_number": "102479648325",
+    "firebase_url": "https://projects-twohandslabs.firebaseio.com",
+    "project_id": "projects-twohandslabs",
+    "storage_bucket": "projects-twohandslabs.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102479648325:android:6f653b2b245b0d0d",
+        "android_client_info": {
+          "package_name": "com.example.appprofilepage"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102479648325-pov1ogamd08sup79q52r4m9jakdk1mqc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.appprofilepage",
+            "certificate_hash": "0ddb321016c9d7b3632148aad6e0d5d7c4f25324"
+          }
+        },
+        {
+          "client_id": "102479648325-u6mpbq7a766a86803q34noite3vm7frg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt90ecsU6sd3fMbzfNv2gfXeN2MFBWzb4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102479648325-u6mpbq7a766a86803q34noite3vm7frg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102479648325:android:7567f6a7ee585d9c",
+        "android_client_info": {
+          "package_name": "com.example.firephoneauth"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102479648325-jt93ap8ngmpl8s9se4sb4vp2ga1jej57.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.firephoneauth",
+            "certificate_hash": "0ddb321016c9d7b3632148aad6e0d5d7c4f25324"
+          }
+        },
+        {
+          "client_id": "102479648325-u6mpbq7a766a86803q34noite3vm7frg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt90ecsU6sd3fMbzfNv2gfXeN2MFBWzb4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "102479648325-u6mpbq7a766a86803q34noite3vm7frg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:102479648325:android:985a425e47292eea",
+        "android_client_info": {
+          "package_name": "com.twohandslabs.knctd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "102479648325-u6mpbq7a766a86803q34noite3vm7frg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCt90ecsU6sd3fMbzfNv2gfXeN2MFBWzb4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

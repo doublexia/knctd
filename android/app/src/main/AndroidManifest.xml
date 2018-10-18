@@ -4,7 +4,7 @@
      found in the LICENSE file.
  -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="io.flutter.demo.gallery">
+    package="com.twohandslabs.knctd">
 
     <!-- The INTERNET permission is required for development. Specifically,
          flutter needs it to communicate with the running application
@@ -19,7 +19,8 @@
          FlutterApplication and put your custom class here. -->
     <!--  -->
     <!--  android:theme="@android:style/Theme.Light.NoTitleBar" -->
-    <application android:name="io.flutter.app.FlutterApplication" android:label="Connected" android:icon="@mipmap/people_connected">
+    <!-- android:name="io.flutter.app.FlutterApplication"  -->
+    <application android:name="com.twohandslabs.knctd.MyFlutterMultiDexApplication" android:label="Connected" android:icon="@mipmap/people_connected">
         <activity android:name=".MainActivity"
                   android:launchMode="singleTop"
                 android:theme="@style/LaunchTheme"

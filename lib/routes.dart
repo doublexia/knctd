@@ -14,5 +14,5 @@ final routes  = {
 //  '/login': (BuildContext context) => new LoginScreen(),
 //  '/home': (BuildContext context) => new HomeScreen(),
 //  '/':(BuildContext context) => new LoginScreen(),
-  '/': (BuildContext context) => new SignupFormFieldDemo()
+//  '/': (BuildContext context) => new SignupFormFieldDemo()
 };
