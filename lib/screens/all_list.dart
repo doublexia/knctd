@@ -3,6 +3,8 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
+import 'dart:io';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:knctd/screens/nav_icon_view.dart';
 import 'package:knctd/data/Contact.dart';
@@ -23,9 +25,14 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
   BottomNavigationBarType _type = BottomNavigationBarType.shifting;
   List<NavigationIconView> _navigationViews;
 
+  FirebaseMessaging _firebaseMessaging = FirebaseMessaging();
+
   @override
   void initState() {
     super.initState();
+
+    firebaseCloudMessaging_Listeners();
+
     _navigationViews = <NavigationIconView>[
 
       new NavigationIconView(
@@ -84,6 +91,37 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
       view.controller.addListener(_rebuild);
 
     _navigationViews[_currentIndex].controller.value = 1.0;
+  }
+
+  void firebaseCloudMessaging_Listeners() {
+    if (Platform.isIOS) iOS_Permission();
+
+    _firebaseMessaging.getToken().then((token){
+      print("Token: '${token}' ");
+    });
+
+    _firebaseMessaging.configure(
+      onMessage: (Map<String, dynamic> message) async {
+        print('on message $message');
+      },
+      onResume: (Map<String, dynamic> message) async {
+        print('on resume $message');
+      },
+      onLaunch: (Map<String, dynamic> message) async {
+        print('on launch $message');
+      },
+    );
+  }
+
+  void iOS_Permission() {
+    _firebaseMessaging.requestNotificationPermissions(
+        IosNotificationSettings(sound: true, badge: true, alert: true)
+    );
+    _firebaseMessaging.onIosSettingsRegistered
+        .listen((IosNotificationSettings settings)
+    {
+      print("Settings registered: $settings");
+    });
   }
 
   @override

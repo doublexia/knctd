@@ -8,6 +8,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_auth:
+  firebase_messaging: ^2.0.2
   collection: 1.14.11
   device_info: 0.2.1
   intl: 0.15.7
