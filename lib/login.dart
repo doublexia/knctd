@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:knctd/data/user.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -89,8 +90,10 @@ class SignupFormFieldDemoState extends State<LoginForm>
   bool _formWasEdited = false;
 
   final GlobalKey<FormState> _formKey = new GlobalKey<FormState>();
-  final GlobalKey<FormFieldState<String>> _passwordFieldKey =
-      new GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _emailFieldKey =   new GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _passwordFieldKey =  new GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _nameFieldKey =  new GlobalKey<FormFieldState<String>>();
+  final GlobalKey<FormFieldState<String>> _phoneFieldKey =  new GlobalKey<FormFieldState<String>>();
   final _UsNumberTextInputFormatter _phoneNumberFormatter =
       new _UsNumberTextInputFormatter();
 
@@ -228,6 +231,15 @@ class SignupFormFieldDemoState extends State<LoginForm>
     return null;
   }
 
+  _launchServieAgreement() async {
+    const url="http://www.twohandslabs.com/pp/pp_qiktalk.html";
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   Future<bool> _warnUserAboutInvalidData() async {
     final FormState form = _formKey.currentState;
     if (form == null || !_formWasEdited || form.validate()) return true;
@@ -348,6 +360,7 @@ class SignupFormFieldDemoState extends State<LoginForm>
               children: <Widget>[
                 const SizedBox(height: 12.0),
                 (widget._loginMode == LoginFormMode.SignUp)? new TextFormField(
+                  key: _nameFieldKey,
                   textCapitalization: TextCapitalization.words,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
@@ -363,6 +376,7 @@ class SignupFormFieldDemoState extends State<LoginForm>
                 )  : new Container(),
                 const SizedBox(height: 12.0),
                 new TextFormField(
+                  key: _emailFieldKey,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     filled: true,
@@ -377,6 +391,7 @@ class SignupFormFieldDemoState extends State<LoginForm>
                 ),
                 const SizedBox(height: 12.0),
                 (widget._loginMode == LoginFormMode.SignUp)? new TextFormField(
+                  key: _phoneFieldKey,
                   decoration: const InputDecoration(
                     border: UnderlineInputBorder(),
                     filled: true,
@@ -424,7 +439,7 @@ class SignupFormFieldDemoState extends State<LoginForm>
                 */
                 new PasswordField(
                   fieldKey: _passwordFieldKey,
-                  helperText: 'No more than 8 characters.',
+                  helperText: 'At least 8 characters.',
                   labelText: 'Password *',
                   onFieldSubmitted: (String value) {
                     setState(() {
@@ -451,8 +466,21 @@ class SignupFormFieldDemoState extends State<LoginForm>
                 const SizedBox(height: 12.0),
                 new Text('* indicates required field',
                     style: Theme.of(context).textTheme.caption),
-                const SizedBox(height: 48.0),
+                const SizedBox(height: 24.0),
                 (widget._loginMode == LoginFormMode.SignUp)?switchToSignin:switchToSignup,
+                const SizedBox(height: 24.0),
+                new Center(
+                  child:InkWell(
+                    onTap: _launchServieAgreement,
+                    child: Text('Terms and Usage Agreement',
+                      style :TextStyle(
+                        color: Colors.green[900],
+                        fontSize: 10.0,
+                        decoration: TextDecoration.underline,
+                      ),
+                    ),
+                  ),
+                ),
                 const SizedBox(height: 12.0),
                 new Center(
                   child: new FlatButton(
