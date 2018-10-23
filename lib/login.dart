@@ -472,13 +472,18 @@ class SignupFormFieldDemoState extends State<LoginForm>
                 new Center(
                   child:InkWell(
                     onTap: _launchServieAgreement,
-                    child: Text('Terms and Usage Agreement',
-                      style :TextStyle(
-                        color: Colors.green[900],
-                        fontSize: 10.0,
-                        decoration: TextDecoration.underline,
+                    child:new FittedBox(
+                      fit: BoxFit.scaleDown,
+                      alignment: Alignment.centerLeft,
+                      child: Text('Terms and Usage Agreement',
+                        style :TextStyle(
+                          color: Colors.green[900],
+                          //fontSize: 12.0,
+                          decoration: TextDecoration.underline,
+                        ),
                       ),
                     ),
+
                   ),
                 ),
                 const SizedBox(height: 12.0),
