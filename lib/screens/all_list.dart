@@ -10,6 +10,7 @@ import 'package:knctd/screens/nav_icon_view.dart';
 import 'package:knctd/data/Contact.dart';
 import 'package:knctd/data/DBContact.dart';
 import 'package:knctd/screens/contacts_list.dart';
+import 'package:knctd/contacts.dart';
 
 class BottomNavigationDemo extends StatefulWidget {
   static String route = '/all_list';
@@ -155,6 +156,40 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
     return new Stack(children: transitions);
   }
 
+  // build action bar actions depending on _currentIndex
+  List<Widget> _buildActions() {
+    if (_currentIndex == 0) {
+      return <Widget>[
+        new IconButton(
+          icon: new Icon(Icons.add),
+          tooltip: "Add new monitoring contact",
+          onPressed: () => Navigator.of(context).pushNamed(ContactDetail.route),
+        )
+      ];
+    } else {
+      return <Widget>[
+        new PopupMenuButton<BottomNavigationBarType>(
+          onSelected: (BottomNavigationBarType value) {
+            setState(() {
+              _type = value;
+            });
+          },
+          itemBuilder: (BuildContext context) =>
+          <PopupMenuItem<BottomNavigationBarType>>[
+            const PopupMenuItem<BottomNavigationBarType>(
+              value: BottomNavigationBarType.fixed,
+              child: Text('Fixed'),
+            ),
+            const PopupMenuItem<BottomNavigationBarType>(
+              value: BottomNavigationBarType.shifting,
+              child: Text('Shifting'),
+            )
+          ],
+        )
+      ];
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final BottomNavigationBar botNavBar = new BottomNavigationBar(
@@ -175,25 +210,7 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
     return new Scaffold(
       appBar: new AppBar(
         title: const Text('Knctd'),
-        actions: <Widget>[
-          new PopupMenuButton<BottomNavigationBarType>(
-            onSelected: (BottomNavigationBarType value) {
-              setState(() {
-                _type = value;
-              });
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuItem<BottomNavigationBarType>>[
-              const PopupMenuItem<BottomNavigationBarType>(
-                value: BottomNavigationBarType.fixed,
-                child: Text('Fixed'),
-              ),
-              const PopupMenuItem<BottomNavigationBarType>(
-                value: BottomNavigationBarType.shifting,
-                child: Text('Shifting'),
-              )
-            ],
-          )
-        ],
+        actions: _buildActions(),
       ),
       body: new Center(
         child: _buildTransitionsStack()

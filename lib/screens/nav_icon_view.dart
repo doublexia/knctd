@@ -12,8 +12,54 @@ class NavigationIconView {
         _color = color,
         _title = title,
         item = new BottomNavigationBarItem(
-          icon: icon,
-          activeIcon: activeIcon,
+          icon: Stack(
+            children: <Widget>[
+              icon,
+              Positioned(
+                top: 0.0,
+                right: 0.0,
+                child: Material(
+                    type: MaterialType.circle,
+                    elevation: 2.0,
+                    color: Colors.red,
+                    child: Padding(
+                      //padding: const EdgeInsets.all(3.0),
+                      child: Text(
+                        "8",
+                        style: TextStyle(
+                          fontSize: 12.0,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    )),
+              )
+            ]
+          ),
+          activeIcon: (activeIcon != null)?Stack(
+              children: <Widget>[
+                activeIcon,
+                Positioned(
+                  top: 0.0,
+                  right: 0.0,
+                  child: Material(
+                      type: MaterialType.circle,
+                      elevation: 2.0,
+                      color: Colors.red,
+                      child: Padding(
+                        //padding: const EdgeInsets.all(3.0),
+                        child: Text(
+                          "8",
+                          style: TextStyle(
+                            fontSize: 12.0,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      )),
+                )
+              ]
+          ) : activeIcon,
           title: new Text(title),
           backgroundColor: color,
         ),
