@@ -20,6 +20,7 @@ dependencies:
   video_player: 0.6.4
 
   shared_preferences: ^0.4.2
+#  badges: ^0.0.6
 
   # Also update dev/benchmarks/complex_layout/pubspec.yaml
   flutter_gallery_assets: 0.1.6

@@ -47,6 +47,7 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
           //child: const Icon(Icons.perm_identity),
           child: getContacts(false),
         ),
+        count: 8,
       ),
       new NavigationIconView(
         activeIcon: const Icon(Icons.favorite),
@@ -58,6 +59,7 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
           label: 'Placeholder for Cloud tab',
           child: getContacts(true),
         ),
+        count: 18,
       ),
       new NavigationIconView(
         icon: const Icon(Icons.access_alarm),

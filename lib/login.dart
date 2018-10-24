@@ -102,7 +102,7 @@ class SignupFormFieldDemoState extends State<LoginForm>
         context: context,
         builder: (BuildContext context) {
           return new SimpleDialog(
-            title: const Text('Sign Up ...'),
+            title: const Text('Register ...'),
             children: <Widget>[
               new CircularProgressIndicator(),
             ],
@@ -155,10 +155,10 @@ class SignupFormFieldDemoState extends State<LoginForm>
               child: new CircularProgressIndicator(),
             ),
 
-//            new Text("Sign Up..."),
+//            new Text("Register..."),
             new Padding(
               padding: new EdgeInsets.symmetric(vertical: 15.0),
-              child: const Text('Sign Up...'),
+              child: const Text('Register...'),
             )
           ],
         ),
@@ -330,7 +330,7 @@ class SignupFormFieldDemoState extends State<LoginForm>
                 widget._loginMode = LoginFormMode.SignUp;
               });
             },
-            child: Text('SIGN UP',
+            child: Text('REGISTER',
               style :TextStyle(
                 color: Colors.green,
                 fontSize: Theme.of(context).textTheme.title.fontSize,

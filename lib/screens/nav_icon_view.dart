@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:knctd/pub/badge_icon.dart';
 
 class NavigationIconView {
   NavigationIconView({
@@ -8,64 +9,68 @@ class NavigationIconView {
     Color color,
     TickerProvider vsync,
     Widget screen,
+    int count: 0,
   }) : _icon = icon,
         _color = color,
         _title = title,
+      _count = count,
         item = new BottomNavigationBarItem(
-          icon: Stack(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(5.0),
-                child: icon,
-              ),
-              Positioned(
-                top: 0.0,
-                right: 0.0,
-                child: Material(
-                    type: MaterialType.circle,
-                    elevation: 2.0,
-                    color: Colors.red,
-                    child: Padding(
-                      padding: const EdgeInsets.all(3.0),
-                      child: Text(
-                        "8",
-                        style: TextStyle(
-                          fontSize: 12.0,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    )),
-              )
-            ]
-          ),
-          activeIcon: (activeIcon != null)?Stack(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child:activeIcon,
-                ),
-                Positioned(
-                  top: 0.0,
-                  right: 0.0,
-                  child: Material(
-                      type: MaterialType.circle,
-                      elevation: 2.0,
-                      color: Colors.red,
-                      child: Padding(
-                        padding: const EdgeInsets.all(3.0),
-                        child: Text(
-                          "8",
-                          style: TextStyle(
-                            fontSize: 12.0,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      )),
-                )
-              ]
-          ) : activeIcon,
+          icon: new BadgeIcon(icon: icon, count:count),
+//          stack(
+//            children: <Widget>[
+//              Padding(
+//                padding: const EdgeInsets.all(5.0),
+//                child: icon,
+//              ),
+//              Positioned(
+//                top: 0.0,
+//                right: 0.0,
+//                child: Material(
+//                    type: MaterialType.circle,
+//                    elevation: 2.0,
+//                    color: Colors.red,
+//                    child: Padding(
+//                      padding: const EdgeInsets.all(3.0),
+//                      child: Text(
+//                        "8",
+//                        style: TextStyle(
+//                          fontSize: 12.0,
+//                          color: Colors.white,
+//                          fontWeight: FontWeight.bold,
+//                        ),
+//                      ),
+//                    )),
+//              )
+//            ]
+//          ),
+          activeIcon: new BadgeIcon(icon: activeIcon??icon, count:count),
+//          (activeIcon != null)?Stack(
+//              children: <Widget>[
+//                Padding(
+//                  padding: const EdgeInsets.all(5.0),
+//                  child:activeIcon,
+//                ),
+//                Positioned(
+//                  top: 0.0,
+//                  right: 0.0,
+//                  child: Material(
+//                      type: MaterialType.circle,
+//                      elevation: 2.0,
+//                      color: Colors.red,
+//                      child: Padding(
+//                        padding: const EdgeInsets.all(3.0),
+//                        child: Text(
+//                          "8",
+//                          style: TextStyle(
+//                            fontSize: 12.0,
+//                            color: Colors.white,
+//                            fontWeight: FontWeight.bold,
+//                          ),
+//                        ),
+//                      )),
+//                )
+//              ]
+//          ) : activeIcon,
           title: new Text(title),
           backgroundColor: color,
         ),
@@ -87,6 +92,7 @@ class NavigationIconView {
   final AnimationController controller;
   CurvedAnimation _animation;
   final Widget _screen;
+  final int _count;
 
   FadeTransition transition(BottomNavigationBarType type, BuildContext context) {
     Color iconColor;
