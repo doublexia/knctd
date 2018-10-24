@@ -14,7 +14,10 @@ class NavigationIconView {
         item = new BottomNavigationBarItem(
           icon: Stack(
             children: <Widget>[
-              icon,
+              Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: icon,
+              ),
               Positioned(
                 top: 0.0,
                 right: 0.0,
@@ -23,7 +26,7 @@ class NavigationIconView {
                     elevation: 2.0,
                     color: Colors.red,
                     child: Padding(
-                      //padding: const EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.all(3.0),
                       child: Text(
                         "8",
                         style: TextStyle(
@@ -38,7 +41,10 @@ class NavigationIconView {
           ),
           activeIcon: (activeIcon != null)?Stack(
               children: <Widget>[
-                activeIcon,
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
+                  child:activeIcon,
+                ),
                 Positioned(
                   top: 0.0,
                   right: 0.0,
@@ -47,7 +53,7 @@ class NavigationIconView {
                       elevation: 2.0,
                       color: Colors.red,
                       child: Padding(
-                        //padding: const EdgeInsets.all(3.0),
+                        padding: const EdgeInsets.all(3.0),
                         child: Text(
                           "8",
                           style: TextStyle(
