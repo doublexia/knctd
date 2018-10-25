@@ -8,14 +8,14 @@ import 'package:path_provider/path_provider.dart';
 import 'package:knctd/data/Contact.dart';
 
 class DBContact {
-  static final DBName ="main.db";
-
-  static final ContactTableName = "contacts";
+  static final DBName = "main.db";
 
   static final DBContact _instance = new DBContact.internal();
   factory DBContact() => _instance;
 
   static Database _db;
+
+  DBContact.internal();
 
   Future<Database> get db async {
     if (_db != null) return _db;
@@ -23,28 +23,36 @@ class DBContact {
     return _db;
   }
 
-  DBContact.internal();
-
   initDb() async {
     io.Directory documentsDirectory = await getApplicationDocumentsDirectory();
     String path = join(documentsDirectory.path, DBName);
-    var theDb = await openDatabase(path, version: 1, onCreate: _onCreate);
+    var theDb = await openDatabase(
+      path,
+      version: 2,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
+    );
     return theDb;
   }
 
   void _onCreate(Database db, int version) async {
     // When creating the db, create the table
-    await db.execute(
-        "CREATE TABLE $ContactTableName("
+    await db.execute("CREATE TABLE ${Contact.db_tableName} ("
         "${Contact.db_id} STRING PRIMARY KEY,"
-          "${Contact.db_acct_id} TEXT,"
-            "${Contact.db_name} TEXT,"
-            "${Contact.db_email} TEXT,"
-            "${Contact.db_phnum} TEXT,"
-            "${Contact.db_last_ct} TEXT,"
-            "${Contact.db_monitoring} TEXT"
+        "${Contact.db_acct_id} TEXT,"
+        "${Contact.db_name} TEXT,"
+        "${Contact.db_email} TEXT,"
+        "${Contact.db_phnum} TEXT,"
+        "${Contact.db_last_ct} TEXT,"
+        "${Contact.db_monitoring} TEXT"
         ")");
-    print("Created tables");
+    print("*************Created tables********** ${Contact.db_tableName}");
+  }
+
+  void _onUpgrade(Database db, int oldVersion, int version) async {
+    await db.execute("DROP TABLE IF EXISTS ${Contact.db_tableName}");
+
+    _onCreate(db, version);
   }
 
   Future close() async {
@@ -55,8 +63,11 @@ class DBContact {
   /// Get a contact by its id, if there is not entry for that ID, returns null.
   Future<Contact> getContact(String id) async {
     var dbClient = await db;
-    //var result = await dbClient.rawQuery('SELECT * FROM $ContactTableName WHERE ${Contact.db_id} = "$id"');
-    List<Map> result = await dbClient.query("$ContactTableName", columns: Contact.columns, where: "${Contact.db_id} = ?", whereArgs: [id]);
+    //var result = await dbClient.rawQuery('SELECT * FROM Contact.db_tableName WHERE ${Contact.db_id} = "$id"');
+    List<Map> result = await dbClient.query("${Contact.db_tableName}",
+        columns: Contact.columns,
+        where: "${Contact.db_id} = ?",
+        whereArgs: [id]);
 
     if (result.length == 0) return null;
     return new Contact.fromMap(result[0]);
@@ -66,11 +77,14 @@ class DBContact {
   Future<List<Contact>> getMonitoredContacts() async {
     var dbClient = await db;
     List<Contact> contacts = [];
-//    var result = await dbClient.rawQuery('SELECT * FROM $ContactTableName WHERE ${Contact.db_monitoring} = "1"');
+//    var result = await dbClient.rawQuery('SELECT * FROM Contact.db_tableName WHERE ${Contact.db_monitoring} = "1"');
 //    for (Map<String, dynamic> item in result) {
 //      contacts.add(new Contact.fromMap(item));
 //    }
-    List<Map> result = await dbClient.query("$ContactTableName", columns: Contact.columns, where: "${Contact.db_monitoring} = ?", whereArgs: ["1"]);
+    List<Map> result = await dbClient.query("${Contact.db_tableName}",
+        columns: Contact.columns,
+        where: "${Contact.db_monitoring} = ?",
+        whereArgs: ["1"]);
     result.forEach((res) {
       contacts.add(new Contact.fromMap(res));
     });
@@ -81,11 +95,14 @@ class DBContact {
   Future<List<Contact>> getMonitoringContacts() async {
     var dbClient = await db;
     List<Contact> contacts = [];
-//    var result = await dbClient.rawQuery('SELECT * FROM $ContactTableName WHERE ${Contact.db_monitoring} = "0"');
+//    var result = await dbClient.rawQuery('SELECT * FROM $Contact.db_tableName WHERE ${Contact.db_monitoring} = "0"');
 //    for (Map<String, dynamic> item in result) {
 //      contacts.add(new Contact.fromMap(item));
 //    }
-    List<Map> result = await dbClient.query("$ContactTableName", columns: Contact.columns, where: "${Contact.db_monitoring} = ?", whereArgs: ["0"]);
+    List<Map> result = await dbClient.query("${Contact.db_tableName}",
+        columns: Contact.columns,
+        where: "${Contact.db_monitoring} = ?",
+        whereArgs: ["0"]);
     result.forEach((res) {
       contacts.add(new Contact.fromMap(res));
     });
@@ -96,16 +113,19 @@ class DBContact {
     var dbClient = await db;
     int res = 0;
 //    res = await dbClient.rawInsert('INSERT OR REPLACE INTO '
-//        '$ContactTableName(${Contact.db_id}, ${Contact.db_acct_id},${Contact.db_name}, ${Contact.db_email}, ${Contact.db_phnum},${Contact.db_last_ct}, ${Contact.db_monitoring} )'
+//        '$Contact.db_tableName(${Contact.db_id}, ${Contact.db_acct_id},${Contact.db_name}, ${Contact.db_email}, ${Contact.db_phnum},${Contact.db_last_ct}, ${Contact.db_monitoring} )'
 //        ' VALUES(?, ?, ?, ?, ?, ?, ?)',
 //        [contact.id, contact.acctid, contact.name, contact.email, contact.phnum, contact.lastct, contact.monitoring]
 //    );
 
-    var count = Sqflite.firstIntValue(await _db.rawQuery("SELECT COUNT(*) FROM $ContactTableName WHERE ${Contact.db_acct_id} = ?", [contact.id]));
+    var count = Sqflite.firstIntValue(await _db.rawQuery(
+        "SELECT COUNT(*) FROM ${Contact.db_tableName} WHERE ${Contact.db_acct_id} = ?",
+        [contact.id]));
     if (count == 0) {
-      res = await dbClient.insert("$ContactTableName", contact.toMap());
+      res = await dbClient.insert("${Contact.db_tableName}", contact.toMap());
     } else {
-      res = await dbClient.update("$ContactTableName", contact.toMap(), where: "${Contact.db_id} = ?", whereArgs: [contact.id]);
+      res = await dbClient.update("${Contact.db_tableName}", contact.toMap(),
+          where: "${Contact.db_id} = ?", whereArgs: [contact.id]);
     }
 
     return res;
@@ -113,6 +133,7 @@ class DBContact {
 
   Future<int> deleteContact(Contact contact) async {
     var dbClient = await db;
-    int res = await dbClient.delete("$ContactTableName", where: "${Contact.db_id} = ?", whereArgs: [contact.id]);
+    int res = await dbClient.delete("${Contact.db_tableName}",
+        where: "${Contact.db_id} = ?", whereArgs: [contact.id]);
   }
 }

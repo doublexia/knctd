@@ -15,6 +15,8 @@ import 'package:knctd/contacts.dart';
 class BottomNavigationDemo extends StatefulWidget {
   static String route = '/all_list';
 
+  DBContact dbContact;
+
   @override
   _BottomNavigationDemoState createState() => new _BottomNavigationDemoState();
 }
@@ -33,6 +35,8 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
     super.initState();
 
     firebaseCloudMessaging_Listeners();
+
+    widget.dbContact = new DBContact();
 
     _navigationViews = <NavigationIconView>[
 
@@ -129,6 +133,8 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
 
   @override
   void dispose() {
+    widget.dbContact.close();
+
     for (NavigationIconView view in _navigationViews)
       view.controller.dispose();
     super.dispose();
@@ -231,7 +237,7 @@ class _BottomNavigationDemoState extends State<BottomNavigationDemo>
 //    }
 
     return new FutureBuilder<List<Contact>> (
-      future: monitoring?DBContact().getMonitoringContacts():DBContact().getMonitoredContacts(),
+      future: monitoring?widget.dbContact.getMonitoringContacts():widget.dbContact.getMonitoredContacts(),
       builder: (BuildContext context, AsyncSnapshot<List<Contact>> snapshot) {
         List<Contact> contacts = [];
         if (snapshot.data != null) contacts = snapshot.data;
