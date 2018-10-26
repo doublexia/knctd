@@ -28,9 +28,10 @@ class DBContact {
     String path = join(documentsDirectory.path, DBName);
     var theDb = await openDatabase(
       path,
-      version: 3,
+      version: 1,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
+      onDowngrade: _onDowngrade,
     );
     return theDb;
   }
@@ -50,6 +51,12 @@ class DBContact {
   }
 
   void _onUpgrade(Database db, int oldVersion, int version) async {
+    await db.execute("DROP TABLE IF EXISTS ${Contact.db_tableName}");
+
+    _onCreate(db, version);
+  }
+
+  void _onDowngrade(Database db, int oldVersion, int version) async {
     await db.execute("DROP TABLE IF EXISTS ${Contact.db_tableName}");
 
     _onCreate(db, version);
