@@ -28,7 +28,7 @@ class DBContact {
     String path = join(documentsDirectory.path, DBName);
     var theDb = await openDatabase(
       path,
-      version: 2,
+      version: 3,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
@@ -37,7 +37,7 @@ class DBContact {
 
   void _onCreate(Database db, int version) async {
     // When creating the db, create the table
-    await db.execute("CREATE TABLE ${Contact.db_tableName} ("
+    var ret = await db.execute("CREATE TABLE ${Contact.db_tableName} ("
         "${Contact.db_id} STRING PRIMARY KEY,"
         "${Contact.db_acct_id} TEXT,"
         "${Contact.db_name} TEXT,"
@@ -46,7 +46,7 @@ class DBContact {
         "${Contact.db_last_ct} TEXT,"
         "${Contact.db_monitoring} TEXT"
         ")");
-    print("*************Created tables********** ${Contact.db_tableName}");
+    print("*************Created tables (${Contact.db_tableName})********** ");
   }
 
   void _onUpgrade(Database db, int oldVersion, int version) async {

@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:knctd/screens/login_screen_presenter.dart';
-import 'package:knctd/utils/auth.dart';
-import 'package:knctd/data/db_helper.dart';
+//import 'package:knctd/utils/auth.dart';
+//import 'package:knctd/data/db_helper.dart';
 import 'package:knctd/screens/passwd_field.dart';
 import 'package:knctd/screens/all_list.dart';
 
@@ -42,7 +42,7 @@ class PersonData {
 }
 
 class SignupFormFieldDemoState extends State<LoginForm>
-    implements LoginScreenContract, AuthStateListener {
+    implements LoginScreenContract /*, AuthStateListener */ {
   static const LoadTimestampChannel =
       const MethodChannel('knctd.twohandslabs.com/timestamp');
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
@@ -505,14 +505,14 @@ class SignupFormFieldDemoState extends State<LoginForm>
     );
   }
 
-  @override
-  void onAuthStateChanged(AuthState state) {
-//    if (state == AuthState.LOGGED_IN) {
-////      var authStateProvider = new AuthStateProvider();
-////      authStateProvider.dispose(this);
-//      Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.route);
-//    }
-  }
+//  @override
+//  void onAuthStateChanged(AuthState state) {
+////    if (state == AuthState.LOGGED_IN) {
+//////      var authStateProvider = new AuthStateProvider();
+//////      authStateProvider.dispose(this);
+////      Navigator.of(context).pushReplacementNamed(SigninFormFieldDemo.route);
+////    }
+//  }
 
   @override
   void onLoginError(String errorTxt) {
@@ -526,10 +526,10 @@ class SignupFormFieldDemoState extends State<LoginForm>
     Navigator.of(context).pop();
     showInSnackBar("Signed up " + user.toString());
     setState(() => _isLoading = false);
-    var db = new DatabaseHelper();
-    //await db.saveUser(user);
-    var authStateProvider = new AuthStateProvider();
-    authStateProvider.notify(AuthState.LOGGED_IN);
+//    var db = new DatabaseHelper();
+//    //await db.saveUser(user);
+//    var authStateProvider = new AuthStateProvider();
+//    authStateProvider.notify(AuthState.LOGGED_IN);
     Navigator.of(context).pushReplacementNamed(BottomNavigationDemo.route);
   }
 }
